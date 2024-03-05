@@ -17,7 +17,7 @@ def stockfish_fen_predict(fen_state=DEFAULT_FEN_STATE, threads=DEFAULT_STOCKFISH
     :param fen_state: string representation of FEN state
     :param threads: threads for stockfish
     :param min_think_time: minimum thinking time
-    :return: A string of best move in algebraic notation or None if mate
+    :return: A string of best move in algebraic notation or None if the current position is a mate
     """
     load_dotenv()
 
@@ -41,4 +41,13 @@ def stockfish_fen_predict(fen_state=DEFAULT_FEN_STATE, threads=DEFAULT_STOCKFISH
 
 if __name__ == "__main__":
     # test run with default FEN state
-    print(stockfish_fen_predict())
+    try:
+        prediction = stockfish_fen_predict()
+
+        if prediction:
+            print(f"Best move: {prediction}")
+        else:
+            print("The position is already in checkmate.")
+    except ValueError as e:
+        print(e)
+
