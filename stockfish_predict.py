@@ -3,14 +3,14 @@ from dotenv import load_dotenv
 import os
 from fen_generator import generate_random_fen 
 
-fen_state = generate_random_fen()
+#fen_state = generate_random_fen()
 DEFAULT_STOCKFISH_THREADS = 4
 DEFAULT_MIN_THINKING_TIME = 30
-DEFAULT_FEN_STATE = fen_state
+#DEFAULT_FEN_STATE = fen_state
 DEPTH = 18
 
 
-def stockfish_fen_predict(fen_state=DEFAULT_FEN_STATE, threads=DEFAULT_STOCKFISH_THREADS,
+def stockfish_fen_predict(fen_state, threads=DEFAULT_STOCKFISH_THREADS,
                           min_think_time=DEFAULT_MIN_THINKING_TIME):
     """
     Predicts the next best move using the installed stockfish designated by the environment variable STOCKFISH_FILEPATH.
@@ -44,13 +44,22 @@ def stockfish_fen_predict(fen_state=DEFAULT_FEN_STATE, threads=DEFAULT_STOCKFISH
 if __name__ == "__main__":
     # test run with default FEN state
     try:
-        prediction = stockfish_fen_predict()
-
-        if prediction:
-            print(f"fen_state: {fen_state}")
-            print(f"Best move: {prediction}")
-        else:
-            print("The position is already in checkmate.")
+        #prediction = stockfish_fen_predict()
+        num_positions = 10
+        for _ in range(num_positions):
+            fenChess_state = generate_random_fen()
+            #pass fenchess_state in
+            predictMove = stockfish_fen_predict(fenChess_state)
+            if predictMove:
+                print(f"fen_state: {fenChess_state}")
+                print(f"Best move: {predictMove}")
+            else:
+                print("The position is already in checkmate.")
+        # if prediction:
+        #     print(f"fen_state: {fen_state}")
+        #     print(f"Best move: {prediction}")
+        # else:
+        #     print("The position is already in checkmate.")
     except ValueError as e:
         print(e)
 

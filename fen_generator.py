@@ -1,6 +1,11 @@
 import chess
 import random
 
+
+""" 
+generate_random_fen generate the randome fen state board 
+:return: A string of fen state
+"""
 def generate_random_fen():
     board = chess.Board()
     moves = random.randint(10, 50)  # Generate random number of moves
