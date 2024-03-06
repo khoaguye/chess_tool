@@ -1,10 +1,12 @@
 from stockfish import Stockfish
 from dotenv import load_dotenv
 import os
+from fen_generator import generate_random_fen 
 
+fen_state = generate_random_fen()
 DEFAULT_STOCKFISH_THREADS = 4
 DEFAULT_MIN_THINKING_TIME = 30
-DEFAULT_FEN_STATE = "rnbqkbnr/ppp2ppp/8/3pp3/2P3P1/8/PP1PPP1P/RNBQKBNR w KQkq - 0 3"
+DEFAULT_FEN_STATE = fen_state
 DEPTH = 18
 
 
@@ -45,6 +47,7 @@ if __name__ == "__main__":
         prediction = stockfish_fen_predict()
 
         if prediction:
+            print(f"fen_state: {fen_state}")
             print(f"Best move: {prediction}")
         else:
             print("The position is already in checkmate.")
