@@ -1,12 +1,9 @@
 from stockfish import Stockfish
 from dotenv import load_dotenv
 import os
-from fen_generator import generate_random_fen 
 
-#fen_state = generate_random_fen()
 DEFAULT_STOCKFISH_THREADS = 4
 DEFAULT_MIN_THINKING_TIME = 30
-#DEFAULT_FEN_STATE = fen_state
 DEPTH = 18
 
 
@@ -25,7 +22,7 @@ def stockfish_fen_predict(fen_state, threads=DEFAULT_STOCKFISH_THREADS,
 
     # get stockfish installation
     stockfish_path = os.getenv("STOCKFISH_FILEPATH")
-    if not os.path.exists(stockfish_path):
+    if not stockfish_path or os.path.exists(stockfish_path):
         raise FileNotFoundError(f"Stockfish filepath not found: {stockfish_path}")
 
     # set up stockfish and load FEN position
@@ -39,27 +36,3 @@ def stockfish_fen_predict(fen_state, threads=DEFAULT_STOCKFISH_THREADS,
 
     # raise error if fen_state is invalid
     raise ValueError(f"Invalid FEN state: {fen_state}")
-
-
-if __name__ == "__main__":
-    # test run with default FEN state
-    try:
-        #prediction = stockfish_fen_predict()
-        num_positions = 10
-        for _ in range(num_positions):
-            fenChess_state = generate_random_fen()
-            #pass fenchess_state in
-            predictMove = stockfish_fen_predict(fenChess_state)
-            if predictMove:
-                print(f"fen_state: {fenChess_state}")
-                print(f"Best move: {predictMove}")
-            else:
-                print("The position is already in checkmate.")
-        # if prediction:
-        #     print(f"fen_state: {fen_state}")
-        #     print(f"Best move: {prediction}")
-        # else:
-        #     print("The position is already in checkmate.")
-    except ValueError as e:
-        print(e)
-
