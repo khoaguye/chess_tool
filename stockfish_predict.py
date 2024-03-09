@@ -22,7 +22,7 @@ def stockfish_fen_predict(fen_state, threads=DEFAULT_STOCKFISH_THREADS,
 
     # get stockfish installation
     stockfish_path = os.getenv("STOCKFISH_FILEPATH")
-    if not stockfish_path or os.path.exists(stockfish_path):
+    if not stockfish_path or not os.path.exists(stockfish_path):
         raise FileNotFoundError(f"Stockfish filepath not found: {stockfish_path}")
 
     # set up stockfish and load FEN position
