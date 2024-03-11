@@ -111,6 +111,18 @@ def process_castles(fen_components):
 def get_next_player(fen_components):
     return ("White" if fen_components[1] == "w" else "Black") + " to move."
 
+def describe_next_move(fen_string, algebraic_notation):
+    if len(algebraic_notation) != 4:
+        return "Invalid algebraic notation. It should be in the format 'e.g. c1e3'."
+
+    piece = algebraic_notation[0]
+    start_square = algebraic_notation[0:2]
+    end_square = algebraic_notation[2:]
+
+    natural_language = (f"Input: {describe_fen(fen_string)} ; "
+                        f"Output: Move from {start_square} to {end_square}.")
+    return natural_language
+
 
 # Test the function
 if __name__ == "__main__":
