@@ -36,3 +36,4 @@ def stockfish_fen_predict(fen_state, threads=DEFAULT_STOCKFISH_THREADS,
 
     # raise error if fen_state is invalid
     raise ValueError(f"Invalid FEN state: {fen_state}")
+print(stockfish_fen_predict("r1bqkb1r/ppp2ppp/2p5/4p3/4n2P/5N1R/PPPP1PP1/RNBQK3 b Qkq - 1 6"))
