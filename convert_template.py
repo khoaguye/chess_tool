@@ -1,3 +1,11 @@
+import chess
+import chess.engine
+import os
+from stockfish import Stockfish
+from dotenv import load_dotenv
+import os
+import re
+
 DEFAULT_FEN_STATE = "5rk1/1p3ppp/pq3b2/8/3Q4/1P3N2/P4PPP/3R2K1 b KQ - 3 27"
 # Define a dictionary to map FEN pieces to their names
 PIECE_NAMES = {
@@ -124,6 +132,79 @@ def describe_next_move(fen_string, algebraic_notation):
     return natural_language
 
 
+# def calculate_centipawn(fen, move):
+#     # Path to the Stockfish engine executable
+
+#     load_dotenv()
+
+#     # get stockfish installation
+#     stockfish_path = os.getenv("STOCKFISH_FILEPATH")
+
+#     # Set up the chess board and engine
+#     board = chess.Board(fen)
+#     engine = chess.engine.SimpleEngine.popen_uci(stockfish_path)
+
+#     # Evaluate the position before the move
+#     info_before = engine.analyse(board, chess.engine.Limit(depth=20))
+#     score_before = info_before['score'].relative.score(mate_score=100000)
+
+#     # Make the move on the board
+#     move = chess.Move.from_uci(move)
+#     board.push(move)
+
+#     # Evaluate the position after the move
+#     info_after = engine.analyse(board, chess.engine.Limit(depth=20))
+#     score_after = info_after['score'].relative.score(mate_score=100000)
+
+#     # Calculate the centipawn change
+#     centipawn_change = score_after - score_before
+
+#     engine.quit()
+
+#     return centipawn_change
+
+
+# def calculate_centipawn(fen):
+#     # Path to the Stockfish engine executable
+#     #     # Path to the Stockfish engine executable
+
+#     load_dotenv()
+
+#     # get stockfish installation
+#     stockfish_path = os.getenv("STOCKFISH_FILEPATH")
+
+#     # Set up the chess board and engine
+#     board = chess.Board(fen)
+#     engine = chess.engine.SimpleEngine.popen_uci(stockfish_path)
+#     load_dotenv()
+
+#     # get stockfish installation
+#     stockfish_path = os.getenv("STOCKFISH_FILEPATH")
+#     info_before = engine.analyse(board, chess.engine.Limit(depth=20))
+#     print(info_before['score'])
+#     #score_after = info_after['score'].relative.score(mate_score=100000)
+#     stockfish = Stockfish(stockfish_path)
+#     stockfish.set_fen_position(fen)
+#     score = stockfish.get_evaluation()['value']
+
+   
+
+#     #return centipawn_change
+#     return score
+
+
+def get_next_fen(fen, move_uci):
+    board = chess.Board(fen)
+    move = chess.Move.from_uci(move_uci)
+    pattern = r'^[a-z]\d[a-z]\d$'
+    if not re.match(pattern, move_uci):
+        return "Illegal move"
+    else:
+        if move in board.legal_moves:  # Check if the move is legal
+            board.push(move)
+            return board.fen()
+        else:
+            return "Illegal move"
+
+
 # Test the function
-if __name__ == "__main__":
-    print(describe_fen())
