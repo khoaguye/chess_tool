@@ -163,36 +163,7 @@ def describe_next_move(fen_string, algebraic_notation):
 
 #     return centipawn_change
 
-
-# def calculate_centipawn(fen):
-#     # Path to the Stockfish engine executable
-#     #     # Path to the Stockfish engine executable
-
-#     load_dotenv()
-
-#     # get stockfish installation
-#     stockfish_path = os.getenv("STOCKFISH_FILEPATH")
-
-#     # Set up the chess board and engine
-#     board = chess.Board(fen)
-#     engine = chess.engine.SimpleEngine.popen_uci(stockfish_path)
-#     load_dotenv()
-
-#     # get stockfish installation
-#     stockfish_path = os.getenv("STOCKFISH_FILEPATH")
-#     info_before = engine.analyse(board, chess.engine.Limit(depth=20))
-#     print(info_before['score'])
-#     #score_after = info_after['score'].relative.score(mate_score=100000)
-#     stockfish = Stockfish(stockfish_path)
-#     stockfish.set_fen_position(fen)
-#     score = stockfish.get_evaluation()['value']
-
    
-
-#     #return centipawn_change
-#     return score
-
-
 def get_next_fen(fen, move_uci):
     board = chess.Board(fen)
     move = chess.Move.from_uci(move_uci)

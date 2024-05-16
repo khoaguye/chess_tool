@@ -21,7 +21,7 @@ def get_next_fen(fen, move_uci):
     board = chess.Board(fen)
     pattern = r'^[a-z]\d[a-z]\d$'
     if not re.match(pattern, move_uci):
-        return "Illegal move"
+        return "wrong format"
     else:
         try:
             move = chess.Move.from_uci(move_uci)
@@ -91,11 +91,15 @@ Calculates the accuracy of a move based on the win percentages before and after 
 """ 
 def accuracy_testing(fen, move):
     move_accuracy = 0
+    wrong_format = 0
     centipawn_value = calculate_centipawn1(fen)
     #print(f"Centipawn Value of the board before the move: {centipawn_value}")
 
     next_fen = get_next_fen(fen, move)
-    if next_fen == "Illegal move":
+    if next_fen == "wrong format":
+        wrong_format += 1
+        move_accuracy = 0
+    elif next_fen == "Illegal move":
         move_accuracy = 0
     else:
         #print((fen, move))
@@ -117,12 +121,12 @@ Tests the accuracy of moves based on a given dataset and returns statistical inf
 :return: Tuple containing the average accuracy, median accuracy, and count of wrong moves.
 """
 def model_testing():
-    filePath = "output_4000_nl_model.csv"
+    filePath = "output_10000_fen_model.csv"
     df = pd.read_csv(filePath)
 
     accuracy_percentages = []
     wrong_move = 0
-    for index, row in df.iloc[1:].iterrows():
+    for index, row in df.iloc[1:1001].iterrows():
         fen = row['FEN State']
         move = row['Move']
         accuracy = accuracy_testing(fen, move)
@@ -134,58 +138,21 @@ def model_testing():
     average_accuracy = statistics.mean(accuracy_percentages)
     median_accuracy = statistics.median(accuracy_percentages)
 
-    return (average_accuracy, median_accuracy, wrong_move)
-    
-print(model_testing())
-#print(str(accuracy_testing("2bk1bn1/3ppn1r/1p1q3p/r1p2Q2/p1N2Pp1/P1PP3N/1P2P1PP/R1B1KB1R w Q - 3 20", "c1d2")) + "%")
+    return (average_accuracy, median_accuracy, wrong_move, wrong_move)
 
+if __name__ == "__main__":
+    model_testing()
 """ 
 RESULT:
 
-Model           Test case   Average    Median      Invalid move
-5k FEN model        1000     23.4%      0               666
-4k FEN model        800      12.2%      0               681
-4k FEN model        1000     11.3%,     0               843
-4k FEN nl model     1000     60.8%     89.75            261
+Model           Test case   Average    Median      Invalid move     Invalid move %
+4k FEN model        800      12.2%      0               681             85.1%
+4k FEN model        1000     11.3%,     0               843             84.3%
+5k FEN model        1000     23.4%      0               666             66.6%
+10k FEN model       1999     31.2%      0               1181            59.0%
+10k FEN model       1000     30.4%      0               601             60.1%
+4k FEN nl model     1000     60.8%     89.75            261             26.1%
 """
 
-# def win_percent_from_cps(cp):
-#     """ Convert centipawn difference to win percent using an exponential model. """
-#     if cp >= 0:
-#         return 100
-#     else:
-#         # The constants a, k, b are derived from your Scala code's embedded comment
-#         return min(max(103.1668100711649 * np.exp(-0.04354415386753951 * cp) - 3.166924740191411 + 1, 0), 100)
 
-# def accuracy_from_win_percents(before, after):
-#     """ Calculate accuracy based on the win percentages before and after a move. """
-#     return win_percent_from_cps(after - before)
-
-
-# def accuracy_testing(fen, move):
-#     move_accuracy = 0
-#     centipawn_value = calculate_centipawn(fen, move)
-#     #print(f"Centipawn Value of the board before the move: {centipawn_value}")
-
-#     next_fen = get_next_fen(fen, move)
-#     if next_fen == "Illegal move":
-#         move_accuracy = 0
-#     else:
-#         centipawn_value = calculate_centipawn(fen, move)
-#         print(f"Centipawn Value of the move: {centipawn_value}")
-
-#         next_fen = get_next_fen(fen, move)
-#         next_move= stockfish_fen_predict(next_fen)
-#         centipawn_value_next = calculate_centipawn(next_fen,next_move)
-#         print("Next FEN:", next_fen)
-
-#         # Example usage:
-#         cp_before = 0  # centipawn value before the move
-#         cp_after = -50  # centipawn value after the move, indicating a loss
-
-#         win_percent_before = win_percent_from_cps(centipawn_value)
-#         win_percent_after = win_percent_from_cps(centipawn_value_next)
-#         move_accuracy = accuracy_from_win_percents(win_percent_before, win_percent_after)
-
-#         print(f"Move Accuracy: {move_accuracy}%")
-#     return round(move_accuracy, 2)
+        
