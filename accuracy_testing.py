@@ -121,7 +121,7 @@ Tests the accuracy of moves based on a given dataset and returns statistical inf
 :return: Tuple containing the average accuracy, median accuracy, and count of wrong moves.
 """
 def model_testing():
-    filePath = "output_10000_fen_model.csv"
+    filePath = "output_11000_fen_model.csv"
     df = pd.read_csv(filePath)
 
     accuracy_percentages = []
@@ -138,19 +138,20 @@ def model_testing():
     average_accuracy = statistics.mean(accuracy_percentages)
     median_accuracy = statistics.median(accuracy_percentages)
 
-    return (average_accuracy, median_accuracy, wrong_move, wrong_move)
-
-if __name__ == "__main__":
-    model_testing()
+    return (average_accuracy, median_accuracy, wrong_move)
+print(model_testing())
+# if __name__ == "__main__":
+#     print(model_testing())
 """ 
 RESULT:
 
-Model           Test case   Average    Median      Invalid move     Invalid move %
-4k FEN model        800      12.2%      0               681             85.1%
-4k FEN model        1000     11.3%,     0               843             84.3%
-5k FEN model        1000     23.4%      0               666             66.6%
-10k FEN model       1999     31.2%      0               1181            59.0%
-10k FEN model       1000     30.4%      0               601             60.1%
+Model           Num_of_train_data   Test case   Average    Median      Invalid move     Invalid move %
+4k FEN model        4000                800      12.2%      0               681             85.1%
+4k FEN model        4000                1000     11.3%,     0               843             84.3%
+5k FEN model        5000                1000     23.4%      0               666             66.6%
+10k FEN model       10000               1999     31.2%      0               1181            59.0%
+10k FEN model       10000               1000     30.4%      0               601             60.1%
+11k FEN model       11000               1000     38.97%     1.71            484             48.4%
 4k FEN nl model     1000     60.8%     89.75            261             26.1%
 """
 
