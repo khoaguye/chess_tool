@@ -71,6 +71,8 @@ def calculate_centipawn1(fen):
 
 # Function to calculate the accuracy of a move based on FEN state and UCI move
 def accuracy_testing(fen, move):
+    if not isinstance(move, str):
+        move = str(move)
     if move == "":
         return 0
     centipawn_value = calculate_centipawn1(fen)
@@ -102,7 +104,7 @@ def accuracy_testing(fen, move):
 
 
 def model_testing():
-    filePath = "model_output/output_original_fen_4bit_modelv2.csv"
+    filePath = "model_output/output_original_nl_4bit_model.csv"
     df = pd.read_csv(filePath)
 
     accuracy_percentages = []
@@ -174,6 +176,7 @@ Based model 5shot         0                   1000     2.2%          0          
 30k Fen model             30000               1000     66.64%       94.01           230              23%                6
 
 Model NL (4bit)          Num_of_train_data   Test case   Average    Median      Invalid move       wrong_format
+Base                        0               1000        5.2       0              820                 116
 500                         500             1000        52.67     62.63          373                 0
 1k nl model                 1000            1000        54.71     71.61          348                 5
 5k                          5000            1000        63.49     89.66          262                 9
