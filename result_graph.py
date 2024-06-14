@@ -10,10 +10,10 @@ data_16bit = {
 }
 
 data_4bit = {
-    "Model": ["4k FEN model", "7k FEN model", "10k FEN model", "11k FEN model", "20k FEN model", "22k FEN model", "23k FEN model","24k FEN model", "25k FEN model", "30k FEN model"],
-    "Num_of_train_data": [4000, 7000, 10000, 11000, 20000,22000, 23000, 24000, 25000, 30000],
-    "Test_case": [1000, 1000, 1000, 1000, 1000,1000,1000,1000,1000,1000],
-    "Accuracy_average": [12.4, 30.65, 39.27, 50.67, 61.28, 64.20, 64.47, 68.78, 67.64, 66.12],
+    "Model": ["4k FEN model", "7k FEN model", "10k FEN model", "11k FEN model", "20k FEN model", "17k FEN model" "22k FEN model", "23k FEN model","24k FEN model", "25k FEN model", "27k FEN model","30k FEN model"],
+    "Num_of_train_data": [4000, 7000, 10000, 11000, 17000, 20000,22000, 23000, 24000, 25000, 27000, 30000],
+    "Test_case": [1000, 1000, 1000, 1000, 1000,1000,1000, 1000, 1000,1000,1000],
+    "Accuracy_average": [12.4, 30.65, 39.27, 50.67,61.55, 61.28, 64.20, 64.47, 68.78, 67.64, 66.12],
     # "Median": [0, 0.55, 38.46, 100],
     # "Invalid_move": [847, 496, 409, 300],
     # "Invalid_move_percentage": [84.7, 49.6, 40.9, 29.8],

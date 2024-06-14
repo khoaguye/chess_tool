@@ -104,13 +104,13 @@ def accuracy_testing(fen, move):
 
 
 def model_testing():
-    filePath = "model_output/output_original_nl_4bit_model.csv"
+    filePath = "model_output/output_10000_fen_4bit_LM3model.csv"
     df = pd.read_csv(filePath)
 
     accuracy_percentages = []
     wrong_move = 0
-    wrong_format_count = 0
-    invalid_fen_count = 0
+    wrong_format_count = 0 
+    invalid_fen_count = 0 
     
     for index, row in df.iloc[1:1001].iterrows():
         fen = row['FEN State']
@@ -160,28 +160,31 @@ Model (16bit)          Num_of_train_data   Test case   Average    Median      In
 10k FEN model                10000               1000     30.4%      0               601             60.1%
 11k FEN model                11000               1000     38.97%     1.71            484             48.4%
 
-Model FEN (4bit)        Num_of_train_data   Test case   Average    Median      Invalid move     Invalid move %    wrong_format
+Model FEN 7x8B(4bit)  Num_of_train_data   Test case   Average    Median      Invalid move     Invalid move %    wrong_format
 Based model               0                   1000     15.36%        0               457             45.7%              353
 Based model 5shot         0                   1000     2.2%          0               970             97%                0
 4k Fen model              4000                1000     12.4%         0               847             84.7%              1
-7k Fen model              7000                1000     30.65% 
-10k Fen model             10000               1000     39.27%       0.55            496              49.6%
+7k Fen model              7000                1000     30.65%        0              
+10k Fen model             10000               1000     39.27%       0.55            496              49.6%     
 11k Fen model             11000               1000     50.67%       57.4            409              40.9%        
+17k Fen model             17000               1000     61.55%       88.67           292              29.2               2
+18k Fen model             18000               1000     61.69%       88.02           264              26.4               20
 20k Fen model             20000               1000     61.28%       89.87           300              30.0%              2
 22k Fen model             22000               1000     64.20%       90.35           258              25.8%              1  
 23k Fen model             23000               1000     64.47%       87.51           241              24.1%              9          
 24k Fen model             24000               1000     68.78%       95.99           209              20.9               2
 25k Fen model             25000               1000     67.6%        95.2            226              22.6%              3      
+27k                       27000               1000     71.12%       97.11           190              19.0                   2
 30k Fen model             30000               1000     66.12%       93.4            237              23.7%              4
-30k Fen model             30000               1000     66.64%       94.01           230              23%                6
 
-Model NL (4bit)          Num_of_train_data   Test case   Average    Median      Invalid move       wrong_format
+
+Model mixtral 7x8B NL (4bit)          Num_of_train_data   Test case   Average    Median      Invalid move       wrong_format
 Base                        0               1000        5.2       0              820                 116
 500                         500             1000        52.67     62.63          373                 0
 1k nl model                 1000            1000        54.71     71.61          348                 5
 5k                          5000            1000        63.49     89.66          262                 9
 7k                          7000            1000        70.35     97.17          206                 2
-10k                         10000           1000        73.63     97.17          161
+10k                         10000           1000        73.63     97.17          161                 4
 11k                         11000           1000        73.10     97.56          165                 5                    
 13k                         13000           1000        73.97     97.94          160                 4                
 15k                         15000           1000        77.43     98.91          128                 3            
@@ -191,6 +194,23 @@ Base                        0               1000        5.2       0             
 
 4k fEN nl model     1000     60.8%     89.75            261             26.1%
 5k  
+
+Model FEN LLama3(4bit) Num_of_train_data   Test case   Average     Median      Invalid move        wrong_format
+4k Fen model              4000                1000     42.75%       18.03           493                  3
+7k Fen model              7000                1000     49.56%       54.78           409                  5              
+10k Fen model             10000               1000     62.85%       88.07           276                  3 
+
+11k Fen model             11000               1000     50.67%       57.4            409              40.9%        
+17k Fen model             17000               1000     61.55%       88.67           292              29.2               2
+18k Fen model             18000               1000     61.69%       88.02           264              26.4               20
+20k Fen model             20000               1000     61.28%       89.87           300              30.0%              2
+22k Fen model             22000               1000     64.20%       90.35           258              25.8%              1  
+23k Fen model             23000               1000     64.47%       87.51           241              24.1%              9          
+24k Fen model             24000               1000     68.78%       95.99           209              20.9               2
+25k Fen model             25000               1000     67.6%        95.2            226              22.6%              3      
+27k                       27000               1000     71.12%       97.11           190              19.0                   2
+30k Fen model             30000               1000     66.12%       93.4            237              23.7%              4
+
 """
 
 
