@@ -31,9 +31,18 @@ data_nl_4bit = {
     # "Wrong_format": [0, 0, 0, 2]
 }
 
+data_fen_lm3_4bit = {
+    "Model": ["4k FEN model", "7k FEN model", "10k FEN model", "11k FEN model","15k FEN model","18k FEN model"],
+    "Num_of_train_data": [4000, 7000, 10000, 11000, 15000, 18000],
+    "Test_case": [1000, 1000, 1000, 1000, 1000,1000],
+    "Accuracy_average": [42.75,49.56,62.85,58.55,65.89,69.23],
+    "Median": [18.03,54.78,88.07,80.42,92.69,95.88],
+    "Invalid_move": [493,409,276,310,235,206],
+    "Wrong_format": [3,5,3,3,3,1]
+}
 
 def training_Data_vs_Accuracy_Average_graph():
-    df = pd.DataFrame(data_nl_4bit)
+    df = pd.DataFrame(data_fen_lm3_4bit)
 
     # Filtering data to include only rows with Test_case == 1000
     filtered_df = df[df["Test_case"] == 1000]

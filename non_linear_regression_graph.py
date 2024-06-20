@@ -10,18 +10,28 @@ data_fen_4bit = {
 }
 # Data definition
 data_nl_4bit = {
-    "Model": ["Base", "500", "1k nl model", "5k", "7k", "10k", "11k", "13k", "15k", "17k", "18k", "20k"],
-    "Num_of_train_data": [0, 500, 1000, 5000, 7000, 10000, 11000, 13000, 15000, 17000, 18000, 20000],
-    "Test_case": [1000, 1000, 1000, 1000, 1000, 1000, 1000, 1000, 1000, 1000, 1000, 1000],
-    "Accuracy_average": [5.2, 52.67, 54.71, 63.49, 70.35, 73.63, 73.10, 73.97, 77.43, 76.98, 75.07, 77.96],
-    "Accuracy_median": [0, 62.63, 71.61, 89.66, 97.17, 97.17, 97.56, 97.94, 98.91, 98.61, 97.6, 98.58],
-    "Invalid_move": [820, 373, 348, 262, 206, 161, 165, 160, 128, 131, 147, 115],
-    "Wrong_format": [116, 0, 5, 9, 2, 4, 5, 4, 3, 1, 2, 4]
+    "Model": [ "500", "1k nl model", "5k", "7k", "10k", "11k", "13k", "15k", "17k", "18k", "20k"],
+    "Num_of_train_data": [ 500, 1000, 5000, 7000, 10000, 11000, 13000, 15000, 17000, 18000, 20000],
+    "Test_case": [ 1000, 1000, 1000, 1000, 1000, 1000, 1000, 1000, 1000, 1000, 1000],
+    "Accuracy_average": [ 52.67, 54.71, 63.49, 70.35, 73.63, 73.10, 73.97, 77.43, 76.98, 75.07, 77.96],
+    "Accuracy_median": [ 62.63, 71.61, 89.66, 97.17, 97.17, 97.56, 97.94, 98.91, 98.61, 97.6, 98.58],
+    "Invalid_move": [ 373, 348, 262, 206, 161, 165, 160, 128, 131, 147, 115],
+    "Wrong_format": [ 0, 5, 9, 2, 4, 5, 4, 3, 1, 2, 4]
 }
 
-num_of_train_data = np.array(data_fen_4bit["Num_of_train_data"])
-accuracy_average = np.array(data_fen_4bit["Accuracy_average"])
-invalid_move = np.array(data_fen_4bit["Invalid_move"])
+data_fen_lm3_4bit = {
+    "Model": ["4k FEN model", "7k FEN model", "10k FEN model", "11k FEN model","15k FEN model","18k FEN model","20k FEN model","23k FEN model","25k FEN model"],
+    "Num_of_train_data": [4000, 7000, 10000, 11000, 15000, 18000,20000,23000,25000],
+    "Test_case": [1000, 1000, 1000, 1000, 1000,1000,1000,1000,1000],
+    "Accuracy_average": [42.75,49.56,62.85,58.55,65.89,69.23,70.29,70.50,71.30],
+    "Median": [18.03,54.78,88.07,80.42,92.69,95.88,96.61,96.78,96.66,96.78],
+    "Invalid_move": [493,409,276,310,235,206,203,202,186],
+    "Wrong_format": [3,5,3,3,3,1,2,2,3]
+}
+
+num_of_train_data = np.array(data_nl_4bit["Num_of_train_data"])
+accuracy_average = np.array(data_nl_4bit["Accuracy_average"])
+invalid_move = np.array(data_nl_4bit["Invalid_move"])
 
 # Performing non-linear regression (quadratic, degree 2)
 coefficients_accuracy = np.polyfit(num_of_train_data, accuracy_average, 2)
@@ -39,17 +49,18 @@ color = 'tab:blue'
 ax1.set_xlabel('Number of Training Data')
 ax1.set_ylabel('Accuracy Average', color=color)
 ax1.scatter(num_of_train_data, accuracy_average, color=color, label='Data points (Accuracy)')
-ax1.plot(num_of_train_data, regression_curve_accuracy, color='red', label='Non-linear regression (Accuracy)')
+ax1.plot(num_of_train_data, regression_curve_accuracy, color='red', label='Accuracy')
 ax1.tick_params(axis='y', labelcolor=color)
 
 ax2 = ax1.twinx()  # instantiate a second axes that shares the same x-axis
 color = 'tab:green'
 ax2.set_ylabel('Invalid Move', color=color)
-ax2.plot(num_of_train_data, regression_curve_invalid_move, color='green', label='Non-linear regression (Invalid Move)')
+ax2.plot(num_of_train_data, regression_curve_invalid_move, color='green', label='Invalid Move')
 ax2.tick_params(axis='y', labelcolor=color)
 
-fig.tight_layout()  # otherwise the right y-label is slightly clipped
-fig.suptitle('Non-linear Regression of Training Data vs. Accuracy and Invalid Moves for Natural Language Model', y=1.05)
+# Adjust layout to make room for the title
+plt.subplots_adjust(top=0.85)
+fig.suptitle('Non-linear Regression of Training Data vs. Accuracy and Invalid Moves for Mixtral 7x8B Natural Language Model', fontsize=14)
 
 ax1.legend(loc='upper left')
 ax2.legend(loc='upper right')
