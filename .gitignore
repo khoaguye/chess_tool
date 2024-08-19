@@ -3,4 +3,11 @@ update_db.py
 /Train_dataset
 /test_dataset
 /model_output
+/Few_shot_output
+
+rate_move.py
 test.py
+result_graph.py
+edit_data.py
+
+ 
